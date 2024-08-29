@@ -1,0 +1,35 @@
+import random
+import string
+
+def generate_password(length, use_symbols=True):
+    characters = string.ascii_letters + string.digits
+    if use_symbols:
+        characters += string.punctuation
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
+
+def main():
+    print("Welcome to the Password Generator!")
+    
+    while True:
+        try:
+            length = int(input("Enter the desired length of the password: "))
+            if length <= 0:
+                raise ValueError("The length must be a positive integer.")
+            break
+        except ValueError as e:
+            print(f"Invalid input: {e}. Please enter a positive integer.")
+    
+    while True:
+        include_symbols = input("Include symbols (y/n)? ").strip().lower()
+        if include_symbols in ('y', 'n'):
+            include_symbols = include_symbols == 'y'
+            break
+        else:
+            print("Invalid input. Please enter 'y' or 'n'.")
+    
+    password = generate_password(length, include_symbols)
+    print(f"Generated password: {password}")
+
+if _name_ == "_main_":
+    main()
